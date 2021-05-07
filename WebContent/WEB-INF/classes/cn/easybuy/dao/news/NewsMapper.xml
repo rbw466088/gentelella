@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.easybuy.dao.news.NewsMapper">
+	
+	
+	
+	<select id="getNewsById" resultType="News">
+		select * from easybuy_news
+		<trim prefix="where" prefixOverrides="and | or">
+			<if test="id != null">
+				and id = #{id}
+			</if>
+		</trim>
+	</select>
+	
+	<select id="queryNewsList" resultType="News" parameterType="NewsParams">
+		select id,title,content,createTime FROM easybuy_news where 1=1
+			<if test="title != null and title !=''">
+				and title like CONCAT ('%',#{title},'%')
+			</if>
+			<if test="sort != null">
+				order by=#{sort}
+			</if>
+			<if test="isPage == true ">
+				limit #{startIndex},#{pageSize}
+			</if>
+	</select>
+
+	<select id="queryNewsCount"  parameterType="NewsParams" resultType="Int">
+		 select count(*) as count FROM easybuy_news where 1=1
+		 <if test="title != null and title != ''">
+				and title like CONCAT ('%',#{title},'%')
+		 </if>
+	</select>
+
+</mapper>
+
+
+
