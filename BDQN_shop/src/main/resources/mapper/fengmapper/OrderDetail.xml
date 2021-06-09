@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.YANG.BDQN_shop.dao.feng.IOrderDetailDao">
+	<insert id="addOrderDetail"  parameterType="com.YANG.BDQN_shop.entity.feng.OrderDetail">
+		  INSERT INTO EASYBUY_ORDER_DETAIL(EO_ID,EP_ID,EOD_QUANTITY,EOD_COST) VALUES (#{eoId},#{epId},#{eodQuantity},#{eodCost})
+	</insert>
+</mapper>

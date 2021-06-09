@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.YANG.BDQN_shop.dao.ming.ZhuCeDao">
+	<insert id="ZhuCe">
+		<![CDATA[
+			insert into EASYBUY_USER(EU_USER_ID,EU_USER_NAME,EU_PASSWORD,EU_SEX,EU_BIRTHDAY,EU_IDENTITY_CODE,EU_EMAIL,EU_MOBILE,EU_ADDRESS)
+				values(#{id},#{name},#{password},#{sex},#{birthday},#{identity},#{email},#{mobile},#{address})
+		]]>
+	</insert>
+</mapper>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.YANG.BDQN_shop.dao.yang.INewDao">
+
+  <!--获取所有的新闻信息-->
+  <select id="getAll" resultType="com.YANG.BDQN_shop.entity.yang.News">
+  <![CDATA[
+    SELECT `EN_ID` enId,
+  `EN_TITLE` enTitle,
+  `EN_CONTENT` enContent,
+  `EN_CREATE_TIME` enCreateTime  FROM EASYBUY_NEWS ORDER BY EN_ID  DESC LIMIT 0,10
+  ]]>
+  </select>
+  
+  <!-- 按ID获取相应的新闻信息  -->
+  <select id="getById" resultType="com.YANG.BDQN_shop.entity.yang.News" parameterType="int">
+  <![CDATA[
+    SELECT `EN_ID` enId,
+  `EN_TITLE` enTitle,
+  `EN_CONTENT` enContent,
+  `EN_CREATE_TIME` enCreateTime  FROM EASYBUY_NEWS where EN_ID = #{newsID}
+  ]]>
+  </select>
+  
+  <!-- 获取新闻总数量  -->
+  <select id="getCount" resultType="int">
+  <![CDATA[
+    select count(1) as counts from EASYBUY_NEWS
+  ]]>
+  </select>
+  
+  <!-- 获取所有的新闻信息（分页显示） -->
+  <select id="getInfoAll"  resultType="com.YANG.BDQN_shop.entity.yang.News" parameterType="com.YANG.BDQN_shop.domain.common.PageInfo">
+  <![CDATA[
+    SELECT `EN_ID` enId,
+  `EN_TITLE` enTitle,
+  `EN_CONTENT` enContent,
+  `EN_CREATE_TIME` enCreateTime  FROM EASYBUY_NEWS  
+   WHERE EN_ID IN (SELECT t.EN_ID FROM  
+  (SELECT * FROM EASYBUY_NEWS  ORDER BY EN_ID DESC
+   LIMIT #{dangQianYe},#{showCounts}) t) ORDER BY EN_ID  DESC
+  ]]>
+  </select>
+  
+  <!-- 添加新闻信息 -->
+  <insert id="addNews" parameterType="com.YANG.BDQN_shop.entity.yang.News">
+  <![CDATA[
+    insert into easybuy_news (EN_TITLE,EN_CONTENT,EN_CREATE_TIME) 
+    values(#{enTitle},#{enContent},#{enCreateTime})
+  ]]>
+  </insert>
+  
+  <!-- 修改新闻信息 -->
+  <update id="updateNews" parameterType="com.YANG.BDQN_shop.entity.yang.News">
+  <![CDATA[
+    update EASYBUY_NEWS set EN_TITLE=#{enTitle},EN_CONTENT=#{enContent},EN_CREATE_TIME=#{enCreateTime} where EN_ID=#{enId}
+  ]]>
+  </update>
+  
+  <!-- 删除相应新闻信息 -->
+  <delete id="deleteNews" parameterType="com.YANG.BDQN_shop.entity.yang.News">
+  <![CDATA[
+    delete from EASYBUY_NEWS where EN_ID=#{enId}
+  ]]>
+  </delete>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</mapper>

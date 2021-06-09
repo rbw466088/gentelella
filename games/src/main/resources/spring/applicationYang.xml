@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+        http://www.springframework.org/schema/aop 
+        http://www.springframework.org/schema/aop/spring-aop-4.1.xsd
+        http://www.springframework.org/schema/tx 
+        http://www.springframework.org/schema/tx/spring-tx-4.1.xsd ">
+
+	<!-- 自动注入bean的命名规范，如果ref接口名称是单个大写字母开头，则把第一个大写字母变小写， 如果当前接口名称的第一个和第二个字符都为大写，则同接口名称相同 -->
+	<!-- biz新闻实现类注入 -->
+	<bean id="gameList" class="com.gdglc.games.service.impl.GameServiceImpl">
+		<!-- ref如果是两个大写字母开头就保持原样，如果是一个大写字母开头就第一个字母小写：classInfoMapper -->
+		<property name="gameMapper" ref="gameMapper" />
+	</bean>
+</beans>

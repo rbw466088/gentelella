@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.YANG.BDQN_shop.dao.you.IXiaoLeiDao">
+  
+  <!-- 小类 -->
+   <select id="findAlls" resultType="com.YANG.BDQN_shop.entity.you.XiaoLeiEntity">
+  <![CDATA[
+		select EPC_ID id,EPC_NAME name,EPC_PARENT_ID papent from EASYBUY_PRODUCT_CATEGORY 
+  ]]>
+  </select>
+  
+   <insert id="AddXiaoLei" parameterType="com.YANG.BDQN_shop.entity.you.XiaoLeiEntity">
+  insert into EASYBUY_PRODUCT_CATEGORY (`EPC_NAME`,`EPC_PARENT_ID` ) values(#{name},#{papent})
+  </insert>
+  
+  <delete id="DeletXiaoLei" parameterType="Integer">
+  	 
+  	delete from EASYBUY_PRODUCT_CATEGORY where EPC_PARENT_ID=#{papent}
+  </delete>
+  
+  <delete id="DeletXiaos" parameterType="Integer">
+  	 delete from EASYBUY_PRODUCT_CATEGORY where EPC_ID=#{petId}
+  </delete>
+  
+   <select id="xiaoById" resultType="com.YANG.BDQN_shop.entity.you.XiaoLeiEntity">
+  <![CDATA[
+		select EPC_ID id,EPC_NAME name,EPC_PARENT_ID papent from EASYBUY_PRODUCT_CATEGORY where EPC_ID = #{id}
+  ]]>
+  </select>
+  
+   <update id="XiaoLeiUpdate" parameterType="com.YANG.BDQN_shop.entity.you.XiaoLeiEntity">
+  update `easybuy_product_category`  set `EPC_NAME`=#{name} where `EPC_ID` = #{id}
+  </update>
+  
+</mapper>

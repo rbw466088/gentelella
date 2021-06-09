@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.YANG.BDQN_shop.dao.yang.ICommentDao">
+  <!--获取所有用户留言-->
+  <select id="getAll" resultType="com.YANG.BDQN_shop.entity.yang.Comment">
+  <![CDATA[
+   SELECT `EC_ID` ecId,
+  	`EC_CONTENT` ecContent,
+  	`EC_CREATE_TIME` ecCreateTime,
+  	`EC_REPLY` ecReply,
+  	`EC_REPLY_TIME` ecReplyTime,
+  	`EC_NICK_NAME` ecNickName 
+  	FROM EASYBUY_COMMENT WHERE EC_ID IN (SELECT t.EC_ID FROM 
+	(SELECT * FROM EASYBUY_COMMENT  ORDER BY EC_CREATE_TIME DESC 
+	LIMIT #{dangQianYe},#{showCounts})AS t)
+	ORDER BY EC_CREATE_TIME  DESC
+  ]]>
+  </select>
+  
+  <!-- 获取所有留言数量  -->
+  <select id="getCount" resultType="int">
+  <![CDATA[
+    select count(1) as counts from EASYBUY_COMMENT
+  ]]>
+  </select>
+  
+  
+  <!--添加留言 -->
+  <insert id="addCom" parameterType="com.YANG.BDQN_shop.entity.yang.Comment">
+  <![CDATA[
+    INSERT INTO EASYBUY_COMMENT (EC_CONTENT,EC_CREATE_TIME,EC_NICK_NAME) 
+    VALUES (#{ecContent},#{ecCreateTime},#{ecNickName})
+  ]]>
+  </insert>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</mapper>

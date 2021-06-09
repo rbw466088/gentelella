@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.YANG.BDQN_shop.dao.ming.HouTaiDingDanDao">
+	<select id="dingdan" resultType="com.YANG.BDQN_shop.entity.ming.HouTaiDingDan" parameterType="com.YANG.BDQN_shop.entity.ming.HouTaiDingDan">
+  	SELECT T.EP_FILE_NAME epfilename,T.EP_NAME epname,T.EP_PRICE epprice,
+  	L.EOD_QUANTITY eodquantity,R.EO_ID eoid,R.EO_CREATE_TIME eocreatetime,R.EO_STATUS eostatus,
+  	R.EO_USER_NAME eousername FROM 
+  	 EASYBUY_ORDER R,EASYBUY_ORDER_DETAIL L,EASYBUY_PRODUCT T 
+  		WHERE L.EP_ID=T.EP_ID AND R.EO_ID=L.EO_ID
+  		<if test="id!=null">
+  			AND R.EO_ID LIKE '%${id}%'
+  		</if>
+  		<if test="names!=null and names!=''">
+  			AND R.EO_USER_NAME LIKE CONCAT('%',#{names},'%')
+  		</if>
+  	</select>
+
+
+	<select id="fiandDingdan" resultType="com.YANG.BDQN_shop.entity.ming.HouTaiDingDan"
+		parameterType="String">
+		select T.EP_FILE_NAME epfilename,T.EP_NAME epname,T.EP_PRICE
+		epprice,L.EOD_QUANTITY eodquantity,
+		R.EO_ID eoid,R.EO_CREATE_TIME eocreatetime,R.EO_STATUS
+		eostatus,R.EO_USER_NAME eousername from
+		EASYBUY_ORDER R,EASYBUY_ORDER_DETAIL L,EASYBUY_PRODUCT T where L.EP_ID=T.EP_ID and
+		R.EO_ID=L.EO_ID
+		<if test="name!=null and name!=''">
+			and R.EO_USER_ID = #{name}
+		</if>
+	</select>
+
+
+<select id="userdingdan" resultType="com.YANG.BDQN_shop.entity.ming.HouTaiDingDan" parameterType="com.YANG.BDQN_shop.entity.ming.HouTaiDingDan">
+  	SELECT T.EP_FILE_NAME epfilename,T.EP_NAME epname,T.EP_PRICE epprice,
+  	L.EOD_QUANTITY eodquantity,R.EO_ID eoid,R.EO_CREATE_TIME eocreatetime,R.EO_STATUS eostatus,
+  	R.EO_USER_NAME eousername FROM 
+  	 EASYBUY_ORDER R,EASYBUY_ORDER_DETAIL L,EASYBUY_PRODUCT T 
+  		WHERE L.EP_ID=T.EP_ID AND R.EO_ID=L.EO_ID
+  	 AND R.EO_ID LIKE '%${id}%'  AND R.EO_USER_ID = #{userid}
+</select>
+
+</mapper>

@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gdglc.stuSystem.dao.StandardMapper">
+	<resultMap id="BaseResultMap" type="com.gdglc.stuSystem.entity.Standard">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="std_num" jdbcType="VARCHAR" property="stdNum" />
+		<result column="zhname" jdbcType="VARCHAR" property="zhname" />
+		<result column="version" jdbcType="VARCHAR" property="version" />
+		<result column="keys" jdbcType="VARCHAR" property="keys" />
+		<result column="release_date" jdbcType="DATE" property="releaseDate" />
+		<result column="impl_date" jdbcType="DATE" property="implDate" />
+		<result column="package_path" jdbcType="VARCHAR" property="packagePath" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		`id`, `std_num`, `zhname`, `version`, `keys`, `release_date`, `impl_date`,
+		`package_path`
+	</sql>
+
+	<select id="selectAll" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from standard
+		<trim prefix="where" prefixOverrides="and|or" suffix="ORDER BY `version` DESC">
+			<if test="name!=null and name!=''">
+				and `zhname` like concat('%',#{name},'%')
+			</if>
+			<if test="1==1">
+				and 1=1
+			</if>
+		</trim>
+	</select>
+
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from standard
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+
+	<delete id="deleteByID">
+		delete from standard
+		where id in
+		<foreach collection="IDlist" index="index" item="id" open="("
+			separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+	<select id="countByStdNum" parameterType="java.lang.String"
+		resultType="int">
+		select count(*) from standard where `std_num` = #{stdNum}
+	</select>
+
+	<insert id="insert" parameterType="com.gdglc.stuSystem.entity.Standard">
+		insert into standard
+		(`std_num`,`zhname`,`version`,`keys`,`release_date`,`impl_date`,`package_path`)
+		values
+		(#{stdNum,jdbcType=VARCHAR},#{zhname,jdbcType=VARCHAR},#{version,jdbcType=VARCHAR},#{keys,jdbcType=VARCHAR},#{releaseDate,jdbcType=DATE},#{implDate,jdbcType=DATE},#{packagePath,jdbcType=VARCHAR})
+	</insert>
+
+
+	<insert id="insertSelective" parameterType="com.gdglc.stuSystem.entity.Standard">
+		insert into standard
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="stdNum != null">
+				std_num,
+			</if>
+			<if test="zhname != null">
+				zhname,
+			</if>
+			<if test="version != null">
+				version,
+			</if>
+			<if test="keys != null">
+				keys,
+			</if>
+			<if test="releaseDate != null">
+				release_date,
+			</if>
+			<if test="implDate != null">
+				impl_date,
+			</if>
+			<if test="packagePath != null">
+				package_path,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="stdNum != null">
+				#{stdNum,jdbcType=VARCHAR},
+			</if>
+			<if test="zhname != null">
+				#{zhname,jdbcType=VARCHAR},
+			</if>
+			<if test="version != null">
+				#{version,jdbcType=VARCHAR},
+			</if>
+			<if test="keys != null">
+				#{keys,jdbcType=VARCHAR},
+			</if>
+			<if test="releaseDate != null">
+				#{releaseDate,jdbcType=DATE},
+			</if>
+			<if test="implDate != null">
+				#{implDate,jdbcType=DATE},
+			</if>
+			<if test="packagePath != null">
+				#{packagePath,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.gdglc.stuSystem.entity.Standard">
+		update standard
+		<set>
+			<if test="stdNum != null">
+				std_num = #{stdNum,jdbcType=VARCHAR},
+			</if>
+			<if test="zhname != null">
+				zhname = #{zhname,jdbcType=VARCHAR},
+			</if>
+			<if test="version != null">
+				version = #{version,jdbcType=VARCHAR},
+			</if>
+			<if test="keys != null">
+				keys = #{keys,jdbcType=VARCHAR},
+			</if>
+			<if test="releaseDate != null">
+				release_date = #{releaseDate,jdbcType=DATE},
+			</if>
+			<if test="implDate != null">
+				impl_date = #{implDate,jdbcType=DATE},
+			</if>
+			<if test="packagePath != null">
+				package_path = #{packagePath,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.gdglc.stuSystem.entity.Standard">
+		update standard
+		<set>
+			<if test="stdNum != null">
+				`std_num` = #{stdNum,jdbcType=VARCHAR},
+			</if>
+			<if test="zhname != null">
+				`zhname` = #{zhname,jdbcType=VARCHAR},
+			</if>
+			<if test="version != null">
+				`version` = #{version,jdbcType=VARCHAR},
+			</if>
+			<if test="keys != null">
+				`keys` = #{keys,jdbcType=VARCHAR},
+			</if>
+			<if test="releaseDate != null">
+				`release_date` = #{releaseDate,jdbcType=DATE},
+			</if>
+			<if test="releaseDate == null">
+				`release_date` = null,
+			</if>
+			<if test="implDate == null">
+				`impl_date` = null,
+			</if>
+			<if test="implDate != null">
+				`impl_date` = #{implDate,jdbcType=DATE},
+			</if>
+			<if test="packagePath != null">
+				`package_path` = #{packagePath,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where `id` = #{id,jdbcType=INTEGER}
+	</update>
+</mapper>

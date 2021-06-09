@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee">
+  <display-name>Archetype Created Web Application</display-name>
+  <!-- 初始化 -->
+  <servlet>
+    <servlet-name>init</servlet-name>
+    <servlet-class>com.gdglc.pets.servlet.common.InitAction</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet>
+  	<servlet-name>PetServlet</servlet-name>
+  	<display-name>PetServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.gdglc.pets.servlet.PetServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>PetServlet</servlet-name>
+  	<url-pattern>/PetServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+  	<servlet-name>AddPetServlet</servlet-name>
+  	<display-name>AddPetServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.gdglc.pets.servlet.AddPetServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>DeletePetServlet</servlet-name>
+  	<display-name>DeletePetServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.gdglc.pets.servlet.DeletePetServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<description>
+  	</description>
+  	<display-name>PetByID</display-name>
+  	<servlet-name>PetByID</servlet-name>
+  	<servlet-class>com.gdglc.pets.servlet.PetByIDServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<description>
+  	</description>
+  	<display-name>UpdatePetServlet</display-name>
+  	<servlet-name>UpdatePetServlet</servlet-name>
+  	<servlet-class>com.gdglc.pets.servlet.UpdatePetServlet</servlet-class>
+  </servlet>
+    <servlet-mapping>
+  	<servlet-name>AddPetServlet</servlet-name>
+  	<url-pattern>/AddPetServlet</url-pattern>
+  </servlet-mapping>
+    <servlet-mapping>
+    	<servlet-name>DeletePetServlet</servlet-name>
+    	<url-pattern>/DeletePetServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+    	<servlet-name>PetByID</servlet-name>
+    	<url-pattern>/PetByIDServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+    	<servlet-name>UpdatePetServlet</servlet-name>
+    	<url-pattern>/UpdatePetServlet</url-pattern>
+    </servlet-mapping>
+</web-app>

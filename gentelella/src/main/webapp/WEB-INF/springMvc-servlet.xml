@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc  
+    	http://www.springframework.org/schema/mvc/spring-mvc.xsd">   	
+    <context:component-scan base-package="cn.appsys.controller"/>
+	<mvc:annotation-driven/>
+	<!-- 配置jsp的视图解析，可以不配置，已经自动生成，在这里只是添加了前缀和后缀，在控制器中return的时候少写一点代码而已 -->
+	<bean  class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+		<!-- 上传文件的时候使用的视图解析，如果有文件上传才需要配置 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="500000" />
+		<property name="defaultEncoding" value="UTF-8"/>
+	</bean>
+	<!-- 存放Bootstrap的js文件 -->
+	<mvc:resources mapping="/js/**" location="/statics/js/"/>
+	<!-- 存放自定义js文件（js文件名和jsp文件名要一致） -->
+	<mvc:resources mapping="/localjs/**" location="/statics/localjs/"/>
+	<!-- 存放Bootstrap的样式文件-->
+	<mvc:resources mapping="/css/**" location="/statics/css/"/>
+	<!-- 存放图片文件 -->
+	<mvc:resources mapping="/images/**" location="/statics/images/"/>
+	<!-- 存放Bootstrap的字体包 -->
+	<mvc:resources mapping="/fonts/**" location="/statics/fonts/"/>
+	<!-- 存放自定义的样式文件（每个css文件名要和jsp文件名一致） -->
+	<mvc:resources mapping="/localcss/**" location="/statics/localcss/"/>
+</beans>

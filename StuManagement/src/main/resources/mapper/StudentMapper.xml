@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gdglc.StuManagement.dao.StudentMapper">
+  <resultMap id="BaseResultMap" type="com.gdglc.StuManagement.entity.Student">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="age" jdbcType="INTEGER" property="age" />
+    <result column="gender" jdbcType="VARCHAR" property="gender" />
+    <result column="telephone" jdbcType="VARCHAR" property="telephone" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="classid" jdbcType="INTEGER" property="classid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, age, gender, telephone, email, classid
+  </sql>
+  
+  <select id="ShowStu" resultType="com.gdglc.StuManagement.entity.Student">
+  	select a.id id,a.name name,a.age age,a.gender gender,a.telephone telephone,a.email email,a.classid classid,b.name classname
+  	from student a,classes b where a.classid = b.id
+  </select>
+  
+  <insert id="insert" parameterType="com.gdglc.StuManagement.entity.Student">
+    insert into student (id, name, age, 
+      gender, telephone, email, 
+      classid)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, 
+      #{gender,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{classid,jdbcType=INTEGER})
+  </insert>
+  
+  
+  
+  
+  
+</mapper>

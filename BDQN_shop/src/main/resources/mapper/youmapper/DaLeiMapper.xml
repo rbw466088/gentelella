@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.YANG.BDQN_shop.dao.you.IDaLeiDao">
+
+<!-- 大类 -->
+<select id="findById" resultType="com.YANG.BDQN_shop.entity.you.DaLeiEntity">
+  <![CDATA[
+		select em_id id,em_name name,em_parent_id papent from EASYBUY_PRODUCT_TYPE where em_id = #{id}
+  ]]>
+  </select>
+  
+  <select id="findAlls" resultType="com.YANG.BDQN_shop.entity.you.DaLeiEntity">
+  <![CDATA[
+		select em_id id,em_name name,em_parent_id papent from EASYBUY_PRODUCT_TYPE 
+  ]]>
+  </select>
+  
+  <update id="DaLeiUpdate" parameterType="com.YANG.BDQN_shop.entity.you.DaLeiEntity">
+  update EASYBUY_PRODUCT_TYPE set em_name=#{name} where em_id = #{id}
+  </update>
+  
+  <insert id="AddDaLei" parameterType="com.YANG.BDQN_shop.entity.you.DaLeiEntity">
+  insert into 
+  EASYBUY_PRODUCT_TYPE(em_name,em_parent_id) values  (#{name},#{papent})  
+  </insert>
+   <delete id="DeletDaLei" parameterType="Integer">
+  	delete from EASYBUY_PRODUCT_TYPE where em_parent_id=#{petId}
+  </delete>
+
+</mapper>

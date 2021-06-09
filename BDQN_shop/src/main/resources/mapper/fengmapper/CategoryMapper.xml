@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.YANG.BDQN_shop.dao.feng.ICategoryDao">
+  	<select id="findAll" resultType="com.YANG.BDQN_shop.entity.feng.Category">
+  		SELECT EPC_ID epcId,EPC_NAME epcName,EPC_PARENT_ID epcParentId FROM EASYBUY_PRODUCT_CATEGORY
+  	</select>
+</mapper>

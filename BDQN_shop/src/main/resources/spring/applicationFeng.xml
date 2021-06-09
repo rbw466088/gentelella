@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans  
+    xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+    http://www.springframework.org/schema/beans/spring-beans-4.1.xsd 
+    http://www.springframework.org/schema/aop 
+    http://www.springframework.org/schema/aop/spring-aop-4.1.xsd"> 
+	
+	<!-- 商品子分类注入 -->
+	<bean id="categoryService" class="com.YANG.BDQN_shop.service.feng.impl.CategoryService">
+		<property name="categoryDao" ref="ICategoryDao"></property>
+	</bean>
+    <!-- 商品父类型注入 -->
+	<bean id="productTypeService" class="com.YANG.BDQN_shop.service.feng.impl.ProductTypeService">
+		<property name="productTypeDao" ref="IProductTypeDao"></property>
+	</bean>
+	<!-- 根据商品类型id查询对应商品分页显示 -->
+	<bean id="productService" class="com.YANG.BDQN_shop.service.feng.impl.ProductService">
+		<property name="productDao" ref="IProductDao"></property>
+	</bean>
+	<!--  -->
+	<bean id="orderService" class="com.YANG.BDQN_shop.service.feng.impl.OrderService">
+		<property name="orderDao" ref="IOrderDao"></property>
+	</bean>
+	<!--  -->
+	<bean id="orderDetailService" class="com.YANG.BDQN_shop.service.feng.impl.OrderDetailService">
+		<property name="orderDetailDao" ref="IOrderDetailDao"></property>
+	</bean>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</beans>  

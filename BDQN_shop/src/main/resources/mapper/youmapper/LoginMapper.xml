@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.YANG.BDQN_shop.dao.you.ILoginDao">
+  <select id="findAll" resultType="com.YANG.BDQN_shop.entity.you.LoginEntity">
+  <![CDATA[
+  select EU_USER_ID id,EU_USER_NAME name,EU_PASSWORD pwd,EU_SEX sex,
+  EU_BIRTHDAY birthday,EU_IDENTITY_CODE identity,EU_EMAIL email, EU_MOBILE mobile,
+  EU_ADDRESS address,EU_STATUS euStatus from EASYBUY_USER where EU_USER_ID=#{id} and EU_PASSWORD=#{pwd}
+  ]]>
+  </select>
+  
+   <select id="status" resultType="int" parameterType="String">
+  <![CDATA[
+  select EU_STATUS from EASYBUY_USER where EU_USER_ID=#{id} and EU_PASSWORD=#{pwd}
+  ]]>
+  </select>
+  
+    <select id="loginById" resultType="com.YANG.BDQN_shop.entity.you.LoginEntity">
+  <![CDATA[
+  select EU_USER_ID id,EU_USER_NAME name,EU_PASSWORD pwd,EU_SEX sex,
+  EU_BIRTHDAY birthday,EU_IDENTITY_CODE identity,EU_EMAIL email, EU_MOBILE mobile,
+  EU_ADDRESS address,EU_STATUS euStatus from EASYBUY_USER where EU_USER_ID = #{id}
+  ]]>
+  </select>
+  
+  <update id="update" parameterType="com.YANG.BDQN_shop.entity.you.LoginEntity">
+  update EASYBUY_USER set EU_USER_NAME=#{name},EU_PASSWORD=#{pwd},EU_SEX=#{sex},EU_BIRTHDAY=#{birthday},EU_MOBILE=#{mobile},EU_ADDRESS=#{address}  where EU_USER_ID = #{id}
+  </update>
+  
+    <select id="findAlls" resultType="com.YANG.BDQN_shop.entity.you.LoginEntity">
+  <![CDATA[
+  select EU_USER_ID id,EU_USER_NAME name,EU_PASSWORD pwd,EU_SEX sex,
+  EU_BIRTHDAY birthday,EU_IDENTITY_CODE identity,EU_EMAIL email, EU_MOBILE mobile,
+  EU_ADDRESS address,EU_STATUS euStatus from EASYBUY_USER where EU_USER_ID = #{id}
+  ]]>
+  </select>
+</mapper>

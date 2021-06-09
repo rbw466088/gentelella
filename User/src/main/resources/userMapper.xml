@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="dao.IUserInfoDao">
+  <select id="selectCount" resultType="int">
+    select count(1) from user_info
+  </select>
+  
+  <select id="showAll" resultType="UserInfo">
+    select `USER_ID` id,`USER_NAME` name,`AGE`,`CREATEDATE`  from user_info
+  </select>
+  
+  <select id="findById" resultType="UserInfo">
+  <![CDATA[
+    select `USER_ID` id,`USER_NAME` name,`AGE`,`CREATEDATE`  from user_info where USER_ID = #{id}
+  ]]>
+  </select>
+  
+  <insert useGeneratedKeys="true" keyProperty="id" id="save" parameterType="UserInfo">
+    insert into user_info (`USER_NAME`,`AGE`,`CREATEDATE`) values(#{name},#{age},now()) 
+  </insert>
+  
+  <update id="userUpdate" parameterType="UserInfo">
+    update user_info set AGE = #{age} where USER_ID = #{id}
+  </update>
+  
+  <delete id="userDelete" parameterType="UserInfo">
+    delete from user_info where USER_ID = #{id}
+  </delete>
+  
+  <select id="findByTime" resultMap="userMap" parameterType="UserInfo" resultType="Stu_Info">
+  <![CDATA[
+    select `USER_ID` id,`USER_NAME` name,`AGE`,`CREATEDATE` createdate from user_info where `createdate`>#{beginTime} and `createdate`<#{endTime}
+  ]]>
+  </select>
+  <resultMap type="UserInfo" id="userMap" >
+  	<id property="id" column="id"/>
+  	<result property="name" column="name"/>
+  	<result property="age" column="AGE"/>
+  	<result property="createdate" column="createdate"/>
+ </resultMap>
+  
+  <!-- association学生信息和班级显示 -->
+  <select id="stu_ShowAll" resultMap="stuMap" parameterType="Stu_Info" resultType="Stu_Info">
+  <![CDATA[
+    SELECT a.`id` id, a.`name` name, a.class_id classId, a.`age` age, a.`birthday` brithday,b.`id` class_id,b.`name` className
+     FROM `stu_info` a,`class_info` b WHERE a.`class_id`=b.`id`
+  ]]>
+  </select>
+  <resultMap type="Stu_Info" id="stuMap">
+  	<id property="id" column="id"/>
+  	<result property="name" column="name"/>
+  	<result property="classId" column="classId"/>
+  	<result property="age" column="age"/>
+  	<result property="brithday" column="brithday"/>
+  	<association property="className" javaType="Class_Info" resultMap="classResult"/>
+  </resultMap>
+  
+  
+  <!-- collection学生信息和班级显示 -->
+  <select id="list_ShowAll" resultMap="stu_Map" parameterType="Stu_Info" resultType="Stu_Info">
+  <![CDATA[
+    SELECT a.`id` id, a.`name` name, a.class_id classId, a.`age` age, a.`birthday` brithday,b.`id` class_id,b.`name` className
+     FROM `stu_info` a,`class_info` b WHERE a.`class_id`=b.`id`
+  ]]>
+  <trim prefixOverrides="or" suffixOverrides="," suffix="order by a.`id` desc">
+	  <if test="name!=null and name!=''">
+	  		and a.`name` like concat('%',#{name},'%'),
+	  </if>
+  </trim>
+  
+  </select>
+  <resultMap type="Stu_Info" id="stu_Map">
+  	<id property="id" column="id"/>
+  	<result property="name" column="name"/>
+  	<result property="classId" column="classId"/>
+  	<result property="age" column="age"/>
+  	<result property="brithday" column="brithday"/>
+  	<collection property="classList" ofType="Class_Info" resultMap="classResult"/>
+  </resultMap>
+  
+  <!-- 公用的重复映射班级信息显示 -->
+  <resultMap type="Class_Info" id="classResult">
+  	<id property="id" column="class_id"/>
+  	<result property="name" column="className" />
+  </resultMap>
+  
+  
+   <!-- 数组入参   显示学生信息 -->
+  <select id="arrayList"  resultType="Stu_Info">
+  <![CDATA[
+    SELECT `id` id, `name` name, class_id classId, `age` age, `birthday` brithday
+     FROM `stu_info` WHERE 1=1
+  ]]>
+  </select>
+  
+  
+</mapper>

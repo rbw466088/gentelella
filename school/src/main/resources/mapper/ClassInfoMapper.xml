@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yang.school.dao.ClassInfoMapper">
+  <select id="findcount" resultType="int">
+  	select count(*) from class_info
+  </select>
+
+  <select id="showClass" resultType="com.yang.school.entity.ClassInfo">
+  	select id as id,name as name from class_info
+  </select>
+
+  <insert id="insert"  parameterType="ClassInfo" >
+  	insert into class_info (name) values(#{name})
+  </insert>
+ 
+</mapper>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.YANG.BDQN_shop.dao.ming.LiuYanDao">
+  <select id="ly" resultType="com.YANG.BDQN_shop.entity.ming.LiuYan">
+  	select EC_ID id,EC_NICK_NAME name,EC_CONTENT content,EC_REPLY reply from EASYBUY_COMMENT
+  </select>
+</mapper>

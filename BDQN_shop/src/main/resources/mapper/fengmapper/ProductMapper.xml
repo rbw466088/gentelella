@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.YANG.BDQN_shop.dao.feng.IProductDao">
+  <select id="findAll" resultType="com.YANG.BDQN_shop.entity.feng.Product">
+  		<![CDATA[
+  			SELECT `EP_ID` epId,`EP_NAME` epName,`EP_DESCRIPTION` epDescription,`EP_PRICE` epPrice,
+  				`EP_STOCK` epStock,`EPC_ID` epcId,`EPC_CHILD_ID` epcChildId,
+                         `EP_FILE_NAME` epFileName FROM EASYBUY_PRODUCT WHERE  EP_ID=#{epId}
+  		]]>
+  </select>
+  
+  <select id="findAllList" resultType="com.YANG.BDQN_shop.entity.feng.Product">
+  		<![CDATA[
+  			SELECT `EP_ID` epId,`EP_NAME` epName,`EP_DESCRIPTION` epDescription,`EP_PRICE` epPrice,
+					`EP_STOCK` epStock,`EPC_ID` epcId,`EPC_CHILD_ID` epcChildId,
+                    `EP_FILE_NAME` epFileName FROM (SELECT * FROM EASYBUY_PRODUCT  WHERE  EPC_ID=#{epcId})AS a 
+                   	 WHERE a.EP_ID IN (SELECT t.EP_ID FROM 
+						(SELECT * FROM (SELECT EP_ID FROM EASYBUY_PRODUCT  WHERE  EPC_ID=#{epcId})AS b 
+							LIMIT #{dangQianYe},#{showCounts})AS t)
+
+  		]]>
+  </select>
+  
+   <select id="getCount" resultType="int"  parameterType="int">
+  		<![CDATA[
+  			select count(1) as counts from EASYBUY_PRODUCT where EPC_ID=#{epcId}
+  		]]>
+  </select>
+  
+  <select id="getAll" resultType="com.YANG.BDQN_shop.entity.feng.Product">
+  		<![CDATA[
+  			SELECT `EP_ID` epId,`EP_NAME` epName,`EP_DESCRIPTION` epDescription,`EP_PRICE` epPrice,
+					`EP_STOCK` epStock,`EPC_ID` epcId,`EPC_CHILD_ID` epcChildId,
+                    `EP_FILE_NAME` epFileName FROM EASYBUY_PRODUCT WHERE EP_ID IN 
+                    (SELECT t.EP_ID FROM (SELECT * FROM EASYBUY_PRODUCT 
+                    LIMIT #{dangQianYe},#{showCounts})AS t)
+
+  		]]>
+  </select>
+  
+  <select id="getCounts" resultType="int">
+  		<![CDATA[
+  			select count(1) as counts from EASYBUY_PRODUCT
+  		]]>
+  </select>
+  
+</mapper>

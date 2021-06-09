@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.YANG.BDQN_shop.dao.you.IDaoimpl">
+
+	<insert id="getCr" parameterType="com.YANG.BDQN_shop.entity.you.EntitySpgl">
+ <![CDATA[
+  insert into EASYBUY_PRODUCT(EP_NAME,EP_DESCRIPTION,EPC_ID,EP_PRICE,EP_STOCK,EP_FILE_NAME)
+   values (#{epname},#{epdescription},#{epcid},#{epprice},#{epstock},#{epfilename})
+   ]]>
+	</insert>
+
+	<delete id="getSc" parameterType="com.YANG.BDQN_shop.entity.you.EntitySpgl">
+  <![CDATA[
+  	delete from EASYBUY_PRODUCT where EP_ID=#{epid}
+  	]]>
+	</delete>
+
+	<select id="getIdcx" resultType="com.YANG.BDQN_shop.entity.you.EntitySpgl"
+		parameterType="int">
+  <![CDATA[
+		select EP_ID epid,EP_NAME epname,EP_DESCRIPTION epdescription,EP_PRICE epprice,EP_STOCK epstock,EPC_ID epcid,EPC_CHILD_ID epcchildid,EP_FILE_NAME epfilename from EASYBUY_PRODUCT where EP_ID=#{id}
+  ]]>
+	</select>
+
+	<select id="getCx" resultType="com.YANG.BDQN_shop.entity.you.EntitySpgl">
+  <![CDATA[
+		select EP_ID epid,EP_NAME epname,EP_DESCRIPTION epdescription,EP_PRICE epprice,EP_STOCK epstock,EPC_ID epcid,EPC_CHILD_ID epcchildid,EP_FILE_NAME epfilename from EASYBUY_PRODUCT 
+  ]]>
+	</select>
+
+	<select id="getMh" resultType="com.YANG.BDQN_shop.entity.you.EntitySpgl"
+		parameterType="String">
+  <![CDATA[
+		select EP_ID epid,EP_NAME epname,EP_DESCRIPTION epdescription,EP_PRICE epprice,EP_STOCK epstock,EPC_ID epcid,EPC_CHILD_ID epcchildid,EP_FILE_NAME epfilename from EASYBUY_PRODUCT 
+			where EP_NAME like CONCAT('%',#{name},'%')
+  ]]>
+	</select>
+
+	<update id="getXg" parameterType="com.YANG.BDQN_shop.entity.you.EntitySpgl">
+  <![CDATA[
+  update EASYBUY_PRODUCT set EP_NAME=#{epname},EP_DESCRIPTION=#{epdescription},EPC_ID=#{epcid},EP_PRICE=#{epprice},EP_STOCK=#{epstock},EP_FILE_NAME=#{epfilename}
+   where EP_ID=#{epid}
+   ]]>
+	</update>
+</mapper>

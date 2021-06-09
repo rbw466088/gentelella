@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gdglc.pets.dao.PetMapper">
+  <resultMap id="BaseResultMap" type="com.gdglc.pets.entity.Pet">
+    <id column="PET_ID" jdbcType="INTEGER" property="petId" />
+    <result column="PET_NAME" jdbcType="VARCHAR" property="petName" />
+    <result column="PET_BREED" jdbcType="VARCHAR" property="petBreed" />
+    <result column="PET_SEX" jdbcType="VARCHAR" property="petSex" />
+    <result column="BIRTHDAY" jdbcType="TIMESTAMP" property="birthday" />
+    <result column="DESCRIPTION" jdbcType="VARCHAR" property="description" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    PET_ID, PET_NAME, PET_BREED, PET_SEX, BIRTHDAY, DESCRIPTION
+  </sql>
+  
+  
+  <select id="selectPetListPage"  resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from pet
+  </select>
+  
+  <select id="selectPetByBreedListPage" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from pet
+    where PET_BREED = #{petBreed,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectPetByID" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from pet
+    where PET_ID = #{petId,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from pet
+    where PET_ID = #{petId,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.gdglc.pets.entity.Pet">
+    insert into pet (PET_NAME, PET_BREED,PET_SEX, BIRTHDAY, DESCRIPTION)
+    values (#{petName,jdbcType=VARCHAR}, #{petBreed,jdbcType=VARCHAR}, 
+      #{petSex,jdbcType=VARCHAR}, #{birthday,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.gdglc.pets.entity.Pet">
+    insert into pet
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="petId != null">
+        PET_ID,
+      </if>
+      <if test="petName != null">
+        PET_NAME,
+      </if>
+      <if test="petBreed != null">
+        PET_BREED,
+      </if>
+      <if test="petSex != null">
+        PET_SEX,
+      </if>
+      <if test="birthday != null">
+        BIRTHDAY,
+      </if>
+      <if test="description != null">
+        DESCRIPTION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="petId != null">
+        #{petId,jdbcType=INTEGER},
+      </if>
+      <if test="petName != null">
+        #{petName,jdbcType=VARCHAR},
+      </if>
+      <if test="petBreed != null">
+        #{petBreed,jdbcType=VARCHAR},
+      </if>
+      <if test="petSex != null">
+        #{petSex,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null">
+        #{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gdglc.pets.entity.Pet">
+    update pet
+    <set>
+      <if test="petName != null">
+        PET_NAME = #{petName,jdbcType=VARCHAR},
+      </if>
+      <if test="petBreed != null">
+        PET_BREED = #{petBreed,jdbcType=VARCHAR},
+      </if>
+      <if test="petSex != null">
+        PET_SEX = #{petSex,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null">
+        BIRTHDAY = #{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null">
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where PET_ID = #{petId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gdglc.pets.entity.Pet">
+    update pet
+    set PET_NAME = #{petName,jdbcType=VARCHAR},
+      PET_BREED = #{petBreed,jdbcType=VARCHAR},
+      PET_SEX = #{petSex,jdbcType=VARCHAR},
+      BIRTHDAY = #{birthday,jdbcType=TIMESTAMP},
+      DESCRIPTION = #{description,jdbcType=VARCHAR}
+    where PET_ID = #{petId,jdbcType=INTEGER}
+  </update>
+</mapper>
